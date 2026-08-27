@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ca744b6a10e48f5b8f919ab4250b03d, type: 3}
+  m_Name: DefaultWaveDefinition
+  m_EditorClassIdentifier: Assembly-CSharp::Game.DOTS.EnemyWaveDefinition
+  healthMultiplierPerLoop: 1.25
+  speedMultiplierPerLoop: 1.05
+  waves:
+  - enemyPrefab: {fileID: 0}
+    spawnCount: 10
+    spawnInterval: 0.8
+    spawns:
+    - enemyPrefab: {fileID: 1661211482903409703, guid: 156740ec02e844bbb21fbca1d23fbbc9, type: 3}
+      spawnCount: 10
+      spawnInterval: 0.8
+    nextWaveDelay: 3
+    healthMultiplier: 1
+    speedMultiplier: 1
+    killRewardMultiplier: 1
+  - enemyPrefab: {fileID: 0}
+    spawnCount: 16
+    spawnInterval: 0.7
+    spawns:
+    - enemyPrefab: {fileID: 1661211482903409703, guid: 156740ec02e844bbb21fbca1d23fbbc9, type: 3}
+      spawnCount: 12
+      spawnInterval: 0.7
+    - enemyPrefab: {fileID: 1661211482903409703, guid: 2b9e5480aeea4cd99f8b4b2138d484b4, type: 3}
+      spawnCount: 4
+      spawnInterval: 0.5
+    nextWaveDelay: 3
+    healthMultiplier: 1.25
+    speedMultiplier: 1.05
+    killRewardMultiplier: 1
+  - enemyPrefab: {fileID: 0}
+    spawnCount: 24
+    spawnInterval: 0.6
+    spawns:
+    - enemyPrefab: {fileID: 1661211482903409703, guid: 2b9e5480aeea4cd99f8b4b2138d484b4, type: 3}
+      spawnCount: 18
+      spawnInterval: 0.45
+    - enemyPrefab: {fileID: 1661211482903409703, guid: 156740ec02e844bbb21fbca1d23fbbc9, type: 3}
+      spawnCount: 6
+      spawnInterval: 0.6
+    nextWaveDelay: 3
+    healthMultiplier: 1.55
+    speedMultiplier: 1.1
+    killRewardMultiplier: 1.2
+  - enemyPrefab: {fileID: 0}
+    spawnCount: 32
+    spawnInterval: 0.5
+    spawns:
+    - enemyPrefab: {fileID: 1661211482903409703, guid: 156740ec02e844bbb21fbca1d23fbbc9, type: 3}
+      spawnCount: 20
+      spawnInterval: 0.5
+    - enemyPrefab: {fileID: 1661211482903409703, guid: 2b9e5480aeea4cd99f8b4b2138d484b4, type: 3}
+      spawnCount: 10
+      spawnInterval: 0.4
+    - enemyPrefab: {fileID: 1661211482903409703, guid: 85c199f61c5d4adca249447afa99d385, type: 3}
+      spawnCount: 2
+      spawnInterval: 0.8
+    nextWaveDelay: 3
+    healthMultiplier: 1.9
+    speedMultiplier: 1.15
+    killRewardMultiplier: 1.4
+  - enemyPrefab: {fileID: 0}
+    spawnCount: 42
+    spawnInterval: 0.4
+    spawns:
+    - enemyPrefab: {fileID: 1661211482903409703, guid: 85c199f61c5d4adca249447afa99d385, type: 3}
+      spawnCount: 12
+      spawnInterval: 0.75
+    - enemyPrefab: {fileID: 1661211482903409703, guid: 2b9e5480aeea4cd99f8b4b2138d484b4, type: 3}
+      spawnCount: 20
+      spawnInterval: 0.35
+    - enemyPrefab: {fileID: 1661211482903409703, guid: 156740ec02e844bbb21fbca1d23fbbc9, type: 3}
+      spawnCount: 10
+      spawnInterval: 0.45
+    nextWaveDelay: 4
+    healthMultiplier: 2.35
+    speedMultiplier: 1.2
+    killRewardMultiplier: 1.6
