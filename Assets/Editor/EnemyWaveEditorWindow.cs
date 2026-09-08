@@ -16,6 +16,7 @@ namespace Game.Editor
         private EnemyWaveDefinition waveDefinition;
         private SerializedObject serializedDefinition;
         private Vector2 scrollPosition;
+        private string lastSaveMessage;
 
         [MenuItem("Tools/Tower Game/Wave Editor")]
         private static void Open()
@@ -27,13 +28,13 @@ namespace Game.Editor
 
         private void OnEnable()
         {
-            Selection.selectionChanged += Repaint;
+            Selection.selectionChanged += OnSelectionChanged;
             SelectWaveDefinitionFromSelection();
         }
 
         private void OnDisable()
         {
-            Selection.selectionChanged -= Repaint;
+            Selection.selectionChanged -= OnSelectionChanged;
         }
 
         private void OnGUI()
@@ -52,6 +53,9 @@ namespace Game.Editor
 
                 using (new EditorGUI.DisabledScope(waveDefinition == null))
                 {
+                    if (GUILayout.Button("Save Asset"))
+                        SaveCurrentAsset();
+
                     if (GUILayout.Button("Select Asset"))
                     {
                         Selection.activeObject = waveDefinition;
@@ -59,6 +63,9 @@ namespace Game.Editor
                     }
                 }
             }
+
+            if (!string.IsNullOrEmpty(lastSaveMessage))
+                EditorGUILayout.HelpBox(lastSaveMessage, MessageType.Info);
 
             if (waveDefinition == null)
             {
@@ -270,6 +277,12 @@ namespace Game.Editor
                 SetWaveDefinition(definition);
         }
 
+        private void OnSelectionChanged()
+        {
+            SelectWaveDefinitionFromSelection();
+            Repaint();
+        }
+
         private void SetWaveDefinition(EnemyWaveDefinition definition)
         {
             if (waveDefinition == definition)
@@ -298,6 +311,15 @@ namespace Game.Editor
             SetWaveDefinition(asset);
             Selection.activeObject = asset;
             EditorGUIUtility.PingObject(asset);
+        }
+
+        private void SaveCurrentAsset()
+        {
+            serializedDefinition?.ApplyModifiedProperties();
+            EditorUtility.SetDirty(waveDefinition);
+            AssetDatabase.SaveAssets();
+            lastSaveMessage = $"Saved: {AssetDatabase.GetAssetPath(waveDefinition)}";
+            Repaint();
         }
     }
 }
