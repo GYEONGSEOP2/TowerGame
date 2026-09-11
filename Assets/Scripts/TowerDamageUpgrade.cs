@@ -6,18 +6,21 @@ namespace Game
     [RequireComponent(typeof(TowerAttack))]
     public sealed class TowerDamageUpgrade : MonoBehaviour
     {
-        [Min(1f)] public float damageMultiplierPerRank = 1.75f;
-
         private TowerAttack towerAttack;
+        private TowerInstance towerInstance;
+
         private void Awake()
         {
             towerAttack = GetComponent<TowerAttack>();
+            towerInstance = GetComponent<TowerInstance>();
         }
 
         public void ApplyRank(TowerRank rank)
         {
             towerAttack.SetRank(rank);
-            towerAttack.SetRankDamageMultiplier(Mathf.Pow(damageMultiplierPerRank, (int)rank));
+            var definition = towerInstance == null ? null : towerInstance.Definition;
+            var multiplierPerRank = definition == null ? 1.75f : definition.rankDamageMultiplier;
+            towerAttack.SetRankDamageMultiplier(Mathf.Pow(multiplierPerRank, (int)rank));
         }
     }
 }

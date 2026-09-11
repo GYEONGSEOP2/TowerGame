@@ -59,6 +59,11 @@ namespace Game
         public void Configure(TowerDefinition towerDefinition)
         {
             definition = towerDefinition;
+            baseDamage = definition.baseDamage;
+            baseFireInterval = definition.baseFireInterval;
+            baseAttackRange = definition.baseAttackRange;
+            projectileSpeed = definition.projectileSpeed;
+            projectileHitRadius = definition.projectileHitRadius;
             RefreshStats();
         }
 

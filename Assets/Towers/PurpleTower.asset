@@ -14,10 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Game.TowerDefinition
   towerType: 2
   displayColor: {r: 0.7, g: 0.28, b: 1, a: 1}
+  baseDamage: 20
+  baseFireInterval: 0.5
+  baseAttackRange: 3
+  projectileSpeed: 12
+  projectileHitRadius: 0.2
   damageMultiplier: 1
   attackSpeedMultiplier: 1
   rangeMultiplier: 1.75
   baseProjectileCount: 2
+  rankDamageMultiplier: 1.75
   explosionRadius: 0
   explosionDamage: 0
   slowDuration: 0

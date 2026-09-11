@@ -26,20 +26,20 @@ namespace Game
             }
 
             var attack = targetTower.GetComponent<TowerAttack>();
-            var upgrade = targetTower.GetComponent<TowerDamageUpgrade>();
-            if (attack == null || upgrade == null)
+            if (attack == null || targetTower.Definition == null)
             {
                 Hide();
                 return;
             }
 
             var nextRank = targetTower.Rank + 1;
-            var nextDamage = attack.damage * upgrade.damageMultiplierPerRank;
+            var rankDamageMultiplier = targetTower.Definition.rankDamageMultiplier;
+            var nextDamage = attack.damage * rankDamageMultiplier;
             title.text = $"{targetTower.Rank} + {targetTower.Rank}  →  {nextRank}";
             title.color = targetTower.Definition.displayColor;
             details.text = targetTower.Definition.towerType switch
             {
-                TowerType.Red => $"Damage  {attack.damage:F0}  →  {nextDamage:F0}\nExplosion  {targetTower.Definition.explosionDamage * attack.RankDamageMultiplier:F0}  →  {targetTower.Definition.explosionDamage * attack.RankDamageMultiplier * upgrade.damageMultiplierPerRank:F0}\nSplash Range  {targetTower.Definition.explosionRadius:F1}",
+                TowerType.Red => $"Damage  {attack.damage:F0}  →  {nextDamage:F0}\nExplosion  {targetTower.Definition.explosionDamage * attack.RankDamageMultiplier:F0}  →  {targetTower.Definition.explosionDamage * attack.RankDamageMultiplier * rankDamageMultiplier:F0}\nSplash Range  {targetTower.Definition.explosionRadius:F1}",
                 TowerType.Purple => $"Damage  {attack.damage:F0}  →  {nextDamage:F0}\nTargets  {attack.ProjectileCount}  →  {attack.ProjectileCount + 1}",
                 _ => $"Damage  {attack.damage:F0}  →  {nextDamage:F0}"
             };
