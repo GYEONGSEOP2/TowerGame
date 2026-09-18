@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2f3b6a813b8470ab4f1d29e6b82a45d, type: 3}
   m_Name: BlueTower
   m_EditorClassIdentifier: Assembly-CSharp::Game.TowerDefinition
-  towerType: 1
+  displayName: Blue Tower
+  description: Slow enemies on hit.
   displayColor: {r: 0.15, g: 0.45, b: 1, a: 1}
   baseDamage: 20
   baseFireInterval: 0.5
@@ -23,6 +24,7 @@ MonoBehaviour:
   attackSpeedMultiplier: 1.75
   rangeMultiplier: 1
   baseProjectileCount: 1
+  projectileCountPerRank: 0
   rankDamageMultiplier: 1.75
   explosionRadius: 0
   explosionDamage: 0

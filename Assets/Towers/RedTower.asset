@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2f3b6a813b8470ab4f1d29e6b82a45d, type: 3}
   m_Name: RedTower
   m_EditorClassIdentifier: Assembly-CSharp::Game.TowerDefinition
-  towerType: 0
+  displayName: Red Tower
+  description: Area damage.
   displayColor: {r: 0.95, g: 0.18, b: 0.16, a: 1}
   baseDamage: 20
   baseFireInterval: 0.5
@@ -23,6 +24,7 @@ MonoBehaviour:
   attackSpeedMultiplier: 1
   rangeMultiplier: 1
   baseProjectileCount: 1
+  projectileCountPerRank: 0
   rankDamageMultiplier: 1.75
   explosionRadius: 0.9
   explosionDamage: 8

@@ -19,9 +19,9 @@ namespace Game
         [Min(1.01f)] public float minimumProjectileSpeedMultiplier = 1.25f;
         [Min(0.01f)] public float projectileHitRadius = 0.2f;
         public float RankDamageMultiplier => rankDamageMultiplier;
-        public int ProjectileCount => definition != null && definition.towerType == TowerType.Purple
-            ? Mathf.Max(1, definition.baseProjectileCount + (int)rank)
-            : 1;
+        public int ProjectileCount => definition == null
+            ? 1
+            : Mathf.Max(1, definition.baseProjectileCount + definition.projectileCountPerRank * (int)rank);
 
         private float baseDamage;
         private float baseFireInterval;

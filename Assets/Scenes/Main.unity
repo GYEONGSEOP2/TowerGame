@@ -2926,6 +2926,7 @@ MonoBehaviour:
   pentagonTowerSprite: {fileID: 3286163911610860551, guid: 8620f76b13ec32543952c08f119b4036, type: 3}
   hexagonTowerSprite: {fileID: 3286163911610860551, guid: 771b0fdc17a385b40aedbadf478eb910, type: 3}
   circleTowerSprite: {fileID: 3286163911610860551, guid: ac5673c504dd3a74885956eb746734d0, type: 3}
+  towerCatalog: {fileID: 11400000, guid: bf4d745ac19f4a229942d15ef7c13c6e, type: 2}
   redTowerDefinition: {fileID: 11400000, guid: a18c673c75f74bd8b4cf821e9b1a5d30, type: 2}
   blueTowerDefinition: {fileID: 11400000, guid: 9f4a6e3d12084a57b6c193d2e7ab5c41, type: 2}
   purpleTowerDefinition: {fileID: 11400000, guid: 6fc77744ccdd4d1fa6254867e72f5f81, type: 2}

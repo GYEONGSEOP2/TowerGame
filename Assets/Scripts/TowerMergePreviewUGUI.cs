@@ -37,12 +37,18 @@ namespace Game
             var nextDamage = attack.damage * rankDamageMultiplier;
             title.text = $"{targetTower.Rank} + {targetTower.Rank}  →  {nextRank}";
             title.color = targetTower.Definition.displayColor;
-            details.text = targetTower.Definition.towerType switch
+            details.text = $"Damage  {attack.damage:F0}  →  {nextDamage:F0}";
+            if (targetTower.Definition.explosionRadius > 0f && targetTower.Definition.explosionDamage > 0f)
             {
-                TowerType.Red => $"Damage  {attack.damage:F0}  →  {nextDamage:F0}\nExplosion  {targetTower.Definition.explosionDamage * attack.RankDamageMultiplier:F0}  →  {targetTower.Definition.explosionDamage * attack.RankDamageMultiplier * rankDamageMultiplier:F0}\nSplash Range  {targetTower.Definition.explosionRadius:F1}",
-                TowerType.Purple => $"Damage  {attack.damage:F0}  →  {nextDamage:F0}\nTargets  {attack.ProjectileCount}  →  {attack.ProjectileCount + 1}",
-                _ => $"Damage  {attack.damage:F0}  →  {nextDamage:F0}"
-            };
+                details.text += $"\nExplosion  {targetTower.Definition.explosionDamage * attack.RankDamageMultiplier:F0}  →  " +
+                                $"{targetTower.Definition.explosionDamage * attack.RankDamageMultiplier * rankDamageMultiplier:F0}" +
+                                $"\nSplash Range  {targetTower.Definition.explosionRadius:F1}";
+            }
+            if (targetTower.Definition.projectileCountPerRank > 0)
+            {
+                var nextProjectileCount = attack.ProjectileCount + targetTower.Definition.projectileCountPerRank;
+                details.text += $"\nTargets  {attack.ProjectileCount}  →  {nextProjectileCount}";
+            }
 
             SetPosition(screenPosition);
             panelRect.gameObject.SetActive(true);

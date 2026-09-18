@@ -12,8 +12,16 @@ namespace Game
         public Sprite pentagonTowerSprite;
         public Sprite hexagonTowerSprite;
         public Sprite circleTowerSprite;
+
+        [Header("Tower Definitions")]
+        public TowerDefinitionCatalog towerCatalog;
+
+        [Header("Legacy Fallback")]
+        [HideInInspector]
         public TowerDefinition redTowerDefinition;
+        [HideInInspector]
         public TowerDefinition blueTowerDefinition;
+        [HideInInspector]
         public TowerDefinition purpleTowerDefinition;
 
         private TowerInstance draggingTower;
@@ -137,6 +145,13 @@ namespace Game
 
         private TowerDefinition GetRandomTowerDefinition()
         {
+            if (towerCatalog != null)
+            {
+                var catalogDefinition = towerCatalog.GetRandomDefinition();
+                if (catalogDefinition != null)
+                    return catalogDefinition;
+            }
+
             var definitionCount = (redTowerDefinition != null ? 1 : 0) +
                                   (blueTowerDefinition != null ? 1 : 0) +
                                   (purpleTowerDefinition != null ? 1 : 0);
@@ -189,7 +204,7 @@ namespace Game
 
         private void CreateTower(TowerTile tile, TowerRank rank, TowerDefinition definition, int investedAmount)
         {
-            var tower = new GameObject($"{definition.towerType} {rank} Tower");
+            var tower = new GameObject($"{definition.displayName} {rank}");
             tower.AddComponent<TowerInstance>().Initialize(this, tile, rank, definition, investedAmount);
         }
 

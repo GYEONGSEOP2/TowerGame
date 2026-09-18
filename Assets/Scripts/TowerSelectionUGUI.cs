@@ -68,22 +68,37 @@ namespace Game
             var attack = tower.GetComponent<TowerAttack>();
             var definition = tower.Definition;
             var color = definition.displayColor;
-            title.text = $"{definition.towerType} {tower.Rank} Tower";
+            title.text = $"{definition.displayName} {tower.Rank}";
             title.color = color;
             icon.sprite = tower.Icon;
             icon.color = color;
             stats.text = $"Damage      {attack.damage:F0}\nAttack SPD  {1f / attack.fireInterval:F1} / sec\nRange       {attack.attackRange:F1}\nTargets     {attack.ProjectileCount}";
-            special.text = definition.towerType switch
-            {
-                TowerType.Red => $"Explosion  {definition.explosionDamage * attack.RankDamageMultiplier:F0} dmg / {definition.explosionRadius:F1} range",
-                TowerType.Blue => $"Slow  {(1f - definition.slowMultiplier) * 100f:F0}% / {definition.slowDuration:F1} sec",
-                TowerType.Purple => "Nearest enemies receive one projectile each.",
-                _ => string.Empty
-            };
+            special.text = GetSpecialText(definition, attack);
             special.color = color;
             sellValue.text = $"Sell Value  {sellService.GetSellValue(tower)}";
             sellValue.color = new Color(0.75f, 1f, 0.55f);
             sellButton.interactable = sellService != null;
+        }
+
+        private static string GetSpecialText(TowerDefinition definition, TowerAttack attack)
+        {
+            var specialText = definition.description;
+            if (definition.explosionRadius > 0f && definition.explosionDamage > 0f)
+                specialText = AppendLine(specialText,
+                    $"Explosion  {definition.explosionDamage * attack.RankDamageMultiplier:F0} dmg / {definition.explosionRadius:F1} range");
+            if (definition.slowDuration > 0f && definition.slowMultiplier < 1f)
+                specialText = AppendLine(specialText,
+                    $"Slow  {(1f - definition.slowMultiplier) * 100f:F0}% / {definition.slowDuration:F1} sec");
+            if (definition.projectileCountPerRank > 0)
+                specialText = AppendLine(specialText,
+                    $"+{definition.projectileCountPerRank} target(s) per rank.");
+
+            return specialText;
+        }
+
+        private static string AppendLine(string value, string line)
+        {
+            return string.IsNullOrEmpty(value) ? line : $"{value}\n{line}";
         }
 
     }

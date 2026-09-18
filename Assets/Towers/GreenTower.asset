@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c2f3b6a813b8470ab4f1d29e6b82a45d, type: 3}
-  m_Name: PurpleTower
+  m_Name: GreenTower
   m_EditorClassIdentifier: Assembly-CSharp::Game.TowerDefinition
-  displayName: Purple Tower
-  description: Fires at multiple nearby targets.
-  displayColor: {r: 0.7, g: 0.28, b: 1, a: 1}
+  displayName: Green Tower
+  description: Fast single-target fire.
+  displayColor: {r: 0.2, g: 0.82, b: 0.32, a: 1}
   baseDamage: 20
-  baseFireInterval: 0.5
-  baseAttackRange: 3
-  projectileSpeed: 12
+  baseFireInterval: 0.42
+  baseAttackRange: 3.4
+  projectileSpeed: 13
   projectileHitRadius: 0.2
   damageMultiplier: 1
   attackSpeedMultiplier: 1
-  rangeMultiplier: 1.75
-  baseProjectileCount: 2
-  projectileCountPerRank: 1
-  rankDamageMultiplier: 1.75
+  rangeMultiplier: 1
+  baseProjectileCount: 1
+  projectileCountPerRank: 0
+  rankDamageMultiplier: 1.6
   explosionRadius: 0
   explosionDamage: 0
   slowDuration: 0

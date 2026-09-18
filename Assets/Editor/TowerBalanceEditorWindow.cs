@@ -79,7 +79,7 @@ namespace Game.Editor
                 GUI.color = previousColor;
                 using (new EditorGUILayout.HorizontalScope())
                 {
-                    EditorGUILayout.LabelField($"{definition.towerType} Tower", EditorStyles.boldLabel);
+                    EditorGUILayout.LabelField(definition.displayName, EditorStyles.boldLabel);
                     GUILayout.FlexibleSpace();
                     if (GUILayout.Button("Select", GUILayout.Width(56f)))
                     {
@@ -88,6 +88,8 @@ namespace Game.Editor
                     }
                 }
 
+                EditorGUILayout.PropertyField(serializedDefinition.FindProperty("displayName"), new GUIContent("Display Name"));
+                EditorGUILayout.PropertyField(serializedDefinition.FindProperty("description"), new GUIContent("Description"));
                 EditorGUILayout.PropertyField(serializedDefinition.FindProperty("displayColor"), new GUIContent("Display Color"));
                 EditorGUILayout.Space(2f);
                 EditorGUILayout.LabelField("Base Combat", EditorStyles.miniBoldLabel);
@@ -103,6 +105,7 @@ namespace Game.Editor
                 EditorGUILayout.PropertyField(serializedDefinition.FindProperty("attackSpeedMultiplier"), new GUIContent("Attack Speed Multiplier"));
                 EditorGUILayout.PropertyField(serializedDefinition.FindProperty("rangeMultiplier"), new GUIContent("Range Multiplier"));
                 EditorGUILayout.PropertyField(serializedDefinition.FindProperty("baseProjectileCount"), new GUIContent("Base Projectile Count"));
+                EditorGUILayout.PropertyField(serializedDefinition.FindProperty("projectileCountPerRank"), new GUIContent("Projectile Count per Rank"));
                 EditorGUILayout.PropertyField(serializedDefinition.FindProperty("rankDamageMultiplier"), new GUIContent("Rank Damage Multiplier"));
 
                 EditorGUILayout.Space(2f);
@@ -123,9 +126,8 @@ namespace Game.Editor
         {
             var rankMultiplier = Mathf.Pow(definition.rankDamageMultiplier, (int)previewRank);
             var fireRate = definition.attackSpeedMultiplier / Mathf.Max(0.01f, definition.baseFireInterval);
-            var projectileCount = definition.towerType == TowerType.Purple
-                ? Mathf.Max(1, definition.baseProjectileCount + (int)previewRank)
-                : 1;
+            var projectileCount = Mathf.Max(1,
+                definition.baseProjectileCount + definition.projectileCountPerRank * (int)previewRank);
             var damage = definition.baseDamage * definition.damageMultiplier * rankMultiplier;
             var range = definition.baseAttackRange * definition.rangeMultiplier;
             var directDps = damage * projectileCount * fireRate;
@@ -166,7 +168,7 @@ namespace Game.Editor
                     definitions.Add(definition);
             }
 
-            definitions.Sort((left, right) => left.towerType.CompareTo(right.towerType));
+            definitions.Sort((left, right) => string.Compare(left.displayName, right.displayName, System.StringComparison.Ordinal));
             Repaint();
         }
 

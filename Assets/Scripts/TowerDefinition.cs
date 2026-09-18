@@ -2,18 +2,13 @@ using UnityEngine;
 
 namespace Game
 {
-    public enum TowerType
-    {
-        Red,
-        Blue,
-        Purple
-    }
-
-    /// <summary>Configures a color tower's combat identity independently from its shape rank.</summary>
+    /// <summary>Configures one tower's presentation and combat behavior independently from its shape rank.</summary>
     [CreateAssetMenu(menuName = "Game/Towers/Tower Definition")]
     public sealed class TowerDefinition : ScriptableObject
     {
-        public TowerType towerType;
+        [Header("Presentation")]
+        public string displayName = "Tower";
+        [TextArea] public string description;
         public Color displayColor = Color.white;
 
         [Header("Base Combat")]
@@ -28,6 +23,7 @@ namespace Game
         [Min(0.01f)] public float attackSpeedMultiplier = 1f;
         [Min(0.01f)] public float rangeMultiplier = 1f;
         [Min(1)] public int baseProjectileCount = 1;
+        [Min(0)] public int projectileCountPerRank;
         [Min(1f)] public float rankDamageMultiplier = 1.75f;
 
         [Header("Special Effects")]
