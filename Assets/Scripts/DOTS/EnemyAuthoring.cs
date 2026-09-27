@@ -45,6 +45,14 @@ namespace Game.DOTS
                     TypeColor = new float4(typeColor.r, typeColor.g, typeColor.b, typeColor.a)
                 });
                 AddComponent(entity, new EnemyMovementSegment());
+                AddComponent(entity, new EnemyPoison
+                {
+                    TickInterval = 1f
+                });
+                AddComponent(entity, new PoisonEffectVisual
+                {
+                    Value = Entity.Null
+                });
                 AddComponent(entity, new EnemyHealth
                 {
                     Current = maxHealth,

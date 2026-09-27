@@ -112,7 +112,10 @@ namespace Game
                     ExplosionRadius = definition.explosionRadius,
                     ExplosionDamage = definition.explosionDamage * rankDamageMultiplier,
                     SlowDuration = definition.slowDuration,
-                    SlowMultiplier = definition.slowMultiplier
+                    SlowMultiplier = definition.slowMultiplier,
+                    PoisonDamagePerTick = definition.poisonDamagePerTick * rankDamageMultiplier,
+                    PoisonDuration = definition.poisonDuration,
+                    PoisonTickInterval = definition.poisonTickInterval
                 });
                 ecb.SetComponent(projectile, LocalTransform.FromPosition(spawnPosition));
                 if (canSetProjectileColor)

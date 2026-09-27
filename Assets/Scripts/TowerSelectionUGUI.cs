@@ -89,6 +89,10 @@ namespace Game
             if (definition.slowDuration > 0f && definition.slowMultiplier < 1f)
                 specialText = AppendLine(specialText,
                     $"Slow  {(1f - definition.slowMultiplier) * 100f:F0}% / {definition.slowDuration:F1} sec");
+            if (definition.poisonDuration > 0f && definition.poisonDamagePerTick > 0f)
+                specialText = AppendLine(specialText,
+                    $"Poison  {definition.poisonDamagePerTick * attack.RankDamageMultiplier:F0} dmg / " +
+                    $"{definition.poisonTickInterval:F1} sec for {definition.poisonDuration:F1} sec");
             if (definition.projectileCountPerRank > 0)
                 specialText = AppendLine(specialText,
                     $"+{definition.projectileCountPerRank} target(s) per rank.");

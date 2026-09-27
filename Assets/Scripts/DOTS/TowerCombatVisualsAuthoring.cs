@@ -9,6 +9,7 @@ namespace Game.DOTS
         public GameObject projectilePrefab;
         public GameObject explosionPrefab;
         public GameObject slowEffectPrefab;
+        public GameObject poisonEffectPrefab;
 
         private sealed class Baker : Baker<TowerCombatVisualsAuthoring>
         {
@@ -18,6 +19,7 @@ namespace Game.DOTS
                 AddPrefabReference(entity, authoring.projectilePrefab, AddProjectilePrefab);
                 AddPrefabReference(entity, authoring.explosionPrefab, AddExplosionPrefab);
                 AddPrefabReference(entity, authoring.slowEffectPrefab, AddSlowEffectPrefab);
+                AddPrefabReference(entity, authoring.poisonEffectPrefab, AddPoisonEffectPrefab);
             }
 
             private void AddPrefabReference(Entity entity, GameObject prefab, System.Action<Entity, Entity> addComponent)
@@ -31,6 +33,7 @@ namespace Game.DOTS
             private void AddProjectilePrefab(Entity entity, Entity prefab) => AddComponent(entity, new ProjectilePrefab { Value = prefab });
             private void AddExplosionPrefab(Entity entity, Entity prefab) => AddComponent(entity, new ExplosionPrefab { Value = prefab });
             private void AddSlowEffectPrefab(Entity entity, Entity prefab) => AddComponent(entity, new SlowEffectPrefab { Value = prefab });
+            private void AddPoisonEffectPrefab(Entity entity, Entity prefab) => AddComponent(entity, new PoisonEffectPrefab { Value = prefab });
         }
     }
 }

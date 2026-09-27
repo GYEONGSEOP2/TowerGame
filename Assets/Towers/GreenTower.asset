@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GreenTower
   m_EditorClassIdentifier: Assembly-CSharp::Game.TowerDefinition
   displayName: Green Tower
-  description: Fast single-target fire.
+  description: Fast single-target fire that applies poison damage over time.
   displayColor: {r: 0.2, g: 0.82, b: 0.32, a: 1}
   baseDamage: 20
   baseFireInterval: 0.42
@@ -30,3 +30,6 @@ MonoBehaviour:
   explosionDamage: 0
   slowDuration: 0
   slowMultiplier: 1
+  poisonDamagePerTick: 7
+  poisonDuration: 3
+  poisonTickInterval: 0.5

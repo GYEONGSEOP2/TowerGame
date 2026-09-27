@@ -35,6 +35,37 @@ namespace Game.DOTS
         public float ExplosionDamage;
         public float SlowDuration;
         public float SlowMultiplier;
+        public float PoisonDamagePerTick;
+        public float PoisonDuration;
+        public float PoisonTickInterval;
+    }
+
+    /// <summary>Refreshable damage-over-time state applied to an enemy by poison projectiles.</summary>
+    public struct EnemyPoison : IComponentData
+    {
+        public float DamagePerTick;
+        public float RemainingDuration;
+        public float TimeUntilNextTick;
+        public float TickInterval;
+    }
+
+    /// <summary>Links a poisoned enemy to its single runtime poison-status indicator.</summary>
+    public struct PoisonEffectVisual : IComponentData
+    {
+        public Entity Value;
+    }
+
+    /// <summary>Runtime visual that follows an enemy while its poison status is active.</summary>
+    public struct PoisonEffect : IComponentData
+    {
+        public Entity Target;
+        public float Elapsed;
+    }
+
+    /// <summary>Provides the rendered poison-status indicator prefab.</summary>
+    public struct PoisonEffectPrefab : IComponentData
+    {
+        public Entity Value;
     }
 
     /// <summary>Short-lived visual feedback for a red tower explosion.</summary>

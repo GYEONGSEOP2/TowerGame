@@ -16,6 +16,7 @@ namespace Game.DOTS
             state.RequireForUpdate<PlayerCurrency>();
             state.RequireForUpdate<ExplosionPrefab>();
             state.RequireForUpdate<SlowEffectPrefab>();
+            state.RequireForUpdate<PoisonEffectPrefab>();
         }
 
         [BurstCompile]
@@ -26,15 +27,19 @@ namespace Game.DOTS
             var targetEnemies = SystemAPI.GetComponentLookup<Enemy>();
             var targetDeaths = SystemAPI.GetComponentLookup<EnemyDeadTag>();
             var targetSlowEffects = SystemAPI.GetComponentLookup<SlowEffectVisual>();
+            var targetPoisons = SystemAPI.GetComponentLookup<EnemyPoison>();
+            var targetPoisonEffects = SystemAPI.GetComponentLookup<PoisonEffectVisual>();
             var ecb = SystemAPI
                 .GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>()
                 .CreateCommandBuffer(state.WorldUnmanaged);
             var projectileCount = SystemAPI.QueryBuilder().WithAll<Projectile>().Build().CalculateEntityCount();
             var processedTargetCapacity = math.max(1, projectileCount);
             var slowEffectsAdded = new NativeParallelHashSet<Entity>(processedTargetCapacity, Allocator.Temp);
+            var poisonEffectsAdded = new NativeParallelHashSet<Entity>(processedTargetCapacity, Allocator.Temp);
             var currency = SystemAPI.GetSingletonRW<PlayerCurrency>();
             var explosionPrefab = SystemAPI.GetSingleton<ExplosionPrefab>().Value;
             var slowEffectPrefab = SystemAPI.GetSingleton<SlowEffectPrefab>().Value;
+            var poisonEffectPrefab = SystemAPI.GetSingleton<PoisonEffectPrefab>().Value;
             var earnedReward = 0;
             var killCount = 0;
             var deltaTime = SystemAPI.Time.DeltaTime;
@@ -105,6 +110,31 @@ namespace Game.DOTS
                     }
                 }
 
+                if (projectile.ValueRO.PoisonDuration > 0f &&
+                    projectile.ValueRO.PoisonDamagePerTick > 0f &&
+                    targetPoisons.HasComponent(target))
+                {
+                    var poison = targetPoisons[target];
+                    poison.DamagePerTick = math.max(poison.DamagePerTick, projectile.ValueRO.PoisonDamagePerTick);
+                    poison.RemainingDuration = math.max(poison.RemainingDuration, projectile.ValueRO.PoisonDuration);
+                    poison.TickInterval = math.max(0.01f, projectile.ValueRO.PoisonTickInterval);
+                    poison.TimeUntilNextTick = math.min(poison.TimeUntilNextTick, poison.TickInterval);
+                    targetPoisons[target] = poison;
+
+                    if (targetPoisonEffects.HasComponent(target) &&
+                        targetPoisonEffects[target].Value == Entity.Null &&
+                        poisonEffectsAdded.Add(target))
+                    {
+                        var poisonEffect = ecb.Instantiate(poisonEffectPrefab);
+                        ecb.SetComponent(poisonEffect, new PoisonEffect { Target = target, Elapsed = 0f });
+                        ecb.SetComponent(poisonEffect, LocalTransform.FromPositionRotationScale(
+                            targetPosition,
+                            quaternion.identity,
+                            0.6f));
+                        ecb.SetComponent(target, new PoisonEffectVisual { Value = poisonEffect });
+                    }
+                }
+
                 if (health.Current <= 0f)
                 {
                     targetDeaths.SetComponentEnabled(target, true);
@@ -144,6 +174,7 @@ namespace Game.DOTS
             currency.ValueRW.KillCount += killCount;
 
             slowEffectsAdded.Dispose();
+            poisonEffectsAdded.Dispose();
         }
     }
 }

@@ -192,6 +192,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 3030088644019298069, guid: 65b10e2ebdf29bc4fb4b6ae50bd7b8c5, type: 3}
   explosionPrefab: {fileID: 3726509888714743442, guid: 6c1889cb3de94034991aeb8f422c8de9, type: 3}
   slowEffectPrefab: {fileID: 2104517888855777417, guid: 78c40dfa84aa68e42b9577e9c64b516a, type: 3}
+  poisonEffectPrefab: {fileID: 3612562920608284451, guid: 94d7f1a91bb14e3a8e73fb3a54ce862f, type: 3}
 --- !u!1 &1004
 GameObject:
   m_ObjectHideFlags: 0

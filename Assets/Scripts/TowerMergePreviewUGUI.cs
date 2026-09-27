@@ -49,6 +49,12 @@ namespace Game
                 var nextProjectileCount = attack.ProjectileCount + targetTower.Definition.projectileCountPerRank;
                 details.text += $"\nTargets  {attack.ProjectileCount}  →  {nextProjectileCount}";
             }
+            if (targetTower.Definition.poisonDuration > 0f && targetTower.Definition.poisonDamagePerTick > 0f)
+            {
+                var poisonDamage = targetTower.Definition.poisonDamagePerTick * attack.RankDamageMultiplier;
+                details.text += $"\nPoison / Tick  {poisonDamage:F0}  →  {poisonDamage * rankDamageMultiplier:F0}" +
+                                $"\nPoison Duration  {targetTower.Definition.poisonDuration:F1} sec";
+            }
 
             SetPosition(screenPosition);
             panelRect.gameObject.SetActive(true);

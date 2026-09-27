@@ -18,7 +18,7 @@ namespace Game
         [Min(0.1f)] public float projectileSpeed = 12f;
         [Min(0.01f)] public float projectileHitRadius = 0.2f;
 
-        [Header("Type Modifiers")]
+        [Header("Combat Modifiers")]
         [Min(0.01f)] public float damageMultiplier = 1f;
         [Min(0.01f)] public float attackSpeedMultiplier = 1f;
         [Min(0.01f)] public float rangeMultiplier = 1f;
@@ -31,5 +31,10 @@ namespace Game
         [Min(0f)] public float explosionDamage;
         [Min(0f)] public float slowDuration;
         [Range(0.05f, 1f)] public float slowMultiplier = 1f;
+
+        [Header("Poison Effect")]
+        [Min(0f)] public float poisonDamagePerTick;
+        [Min(0f)] public float poisonDuration;
+        [Min(0.01f)] public float poisonTickInterval = 1f;
     }
 }
